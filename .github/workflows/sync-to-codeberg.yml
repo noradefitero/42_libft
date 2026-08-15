@@ -27,4 +27,4 @@ jobs:
         with:
           REMOTE: "git@codeberg.org:noradefitero/42_libft.git"
           GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
-          GIT_SSH_KNOWN_HOSTS: ${{ secrets.GIT_SSH_KNOWN_HOSTS != '' && secrets.GIT_SSH_KNOWN_HOSTS || steps.codeberg_known_hosts.outputs.hosts }}
+          GIT_SSH_KNOWN_HOSTS: ${{ steps.codeberg_known_hosts.outputs.hosts }}
