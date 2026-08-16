@@ -6,7 +6,7 @@
 /*   By: dde-fite <dde-fite@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 21:28:04 by dde-fite          #+#    #+#             */
-/*   Updated: 2025/12/19 21:15:25 by dde-fite         ###   ########.fr       */
+/*   Updated: 2026/08/09 20:51:18 by dde-fite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,5 +223,9 @@ int		ft_abs(int n);
 
 // get_next_line
 char	*get_next_line(int fd);
+
+// ft_strisdigit
+// Checks if string is entirely a digit with no decimals.
+int		ft_strisdigit(char const *s);
 
 #endif
