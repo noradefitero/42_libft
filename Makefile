@@ -1,169 +1,107 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: dde-fite <dde-fite@student.42madrid.com    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/10/15 21:44:11 by dde-fite          #+#    #+#              #
-#    Updated: 2026/08/09 20:52:07 by dde-fite         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-# **************************************************************************** #
-# *                            LIBFT by dde-fite                             * #
-# **************************************************************************** #
-
-# Files required for normal compilation: ft_atoi.c, ft_isspace.c,
-# ft_memmove.c, ft_split.c, ft_strmapi.c, ft_toupper.c, ft_bzero.c, ft_itoa.c,
-# ft_memset.c, ft_strchr.c, ft_strncmp.c, libft.h, ft_calloc.c, ft_minnbr.c,
-# ft_strdup.c, ft_strndup.c, ft_isalnum.c, ft_maxnbr.c, ft_minsize.c,
-# ft_striteri.c, ft_strnstr.c, ft_isalpha.c, ft_maxsize.c, ft_putchar_fd.c,
-# ft_strjoin.c, ft_strrchr.c, ft_isascii.c, ft_memchr.c, ft_putendl_fd.c,
-# ft_strlcat.c, ft_strtrim.c, ft_isdigit.c, , ft_memcmp.c,
-# ft_putnbr_fd.c, ft_strlcpy.c, ft_substr.c, ft_isprint.c,
-# ft_memcpy.c, ft_putstr_fd.c, ft_strlen.c, ft_tolower.c, ft_atol.c, ft_sqrt.c.
-
-# Files required for bonus compilation:
-# libft.a (or the name specified in ${NAME}), ft_lstnew_bonus.c,
-# ft_lstadd_back_bonus.c, ft_lstsize_bonus.c, ft_lstadd_front_bonus.c,
-# ft_lstclear_bonus.c, ft_lstdelone_bonus.c, ft_lstmap_bonus.c,
-# ft_lstiter_bonus.c, ft_lstlast_bonus.c
-
-# ******************************** VARIABLES  ******************************** #
-SHELL := /bin/bash
-
-# FILES
 NAME		= libft.a
-BONUSSRC	:= ft_lstnew_bonus.c ft_lstadd_back_bonus.c ft_lstsize_bonus.c \
-				ft_lstadd_front_bonus.c ft_lstclear_bonus.c \
-				ft_lstdelone_bonus.c ft_lstmap_bonus.c ft_lstiter_bonus.c \
-				ft_lstlast_bonus.c
-BONUSOBJ 	:= $(patsubst %.c,%.o,$(BONUSSRC))
-TOTALBONUS	:= $(words $(BONUSSRC))
-SRC			= ft_atoi.c ft_isspace.c ft_memmove.c ft_split.c ft_strmapi.c \
-				ft_toupper.c ft_bzero.c ft_itoa.c ft_memset.c ft_strchr.c \
-				ft_strncmp.c ft_calloc.c ft_minnbr.c ft_strdup.c \
-				ft_strndup.c ft_isalnum.c ft_maxnbr.c ft_minsize.c \
-				ft_striteri.c ft_strnstr.c ft_isalpha.c ft_maxsize.c \
-				ft_putchar_fd.c ft_strjoin.c ft_strrchr.c ft_isascii.c \
-				ft_memchr.c ft_putendl_fd.c ft_strlcat.c ft_strtrim.c \
-				ft_isdigit.c ft_memcmp.c ft_putnbr_fd.c ft_strlcpy.c \
-				ft_substr.c ft_isprint.c ft_memcpy.c ft_putstr_fd.c \
-				ft_strlen.c ft_tolower.c ft_nbrlen.c ft_atol.c ft_sqrt.c \
-				ft_abs.c ft_issign.c get_next_line.c ft_strndup_ssize.c \
-				ft_strisdigit.c
-OBJ			:= $(patsubst %.c,%.o,$(SRC))
-TOTAL		:= $(words $(SRC))
+CC = cc
+CFLAGS = -Wall -Wextra -Iinclude -march=native
+CLINKFLAGS = -fno-semantic-interposition -fno-plt
+ARFLAGS = rcs
+ifdef DEBUG
+    CFLAGS += -g -fdiagnostics-color=always -O0
+else
+    CFLAGS += -Werror -O3
+endif
 
-# GCC COMPILER
-CC			= cc
-CFLAGS		= -Wall -Werror -Wextra -c -O3 -march=native
+BUILD = build
+SRCS = \
+	src/char/ft_isalnum.c \
+	src/char/ft_isalpha.c \
+	src/char/ft_isascii.c \
+	src/char/ft_isdigit.c \
+	src/char/ft_isprint.c \
+	src/char/ft_issign.c \
+	src/char/ft_isspace.c \
+	src/char/ft_tolower.c \
+	src/char/ft_toupper.c \
+	src/conversions/ft_atoi.c \
+	src/conversions/ft_atol.c \
+	src/conversions/ft_itoa.c \
+	src/io/ft_putchar_fd.c \
+	src/io/ft_putendl_fd.c \
+	src/io/ft_putnbr_fd.c \
+	src/io/ft_putstr_fd.c \
+	src/io/gnl/get_next_line.c \
+	src/io/ft_printf/argument_getters.c \
+	src/io/ft_printf/ft_fprintf.c \
+	src/io/ft_printf/ft_printf.c \
+	src/io/ft_printf/ft_vfprintf.c \
+	src/io/ft_printf/ft_vprintf.c \
+	src/io/ft_printf/writers_switch.c \
+	src/io/ft_printf/conversions/char_conversion.c \
+	src/io/ft_printf/conversions/hex_conversion.c \
+	src/io/ft_printf/conversions/int_conversion.c \
+	src/io/ft_printf/conversions/ptr_conversion.c \
+	src/io/ft_printf/conversions/str_conversion.c \
+	src/io/ft_printf/conversions/uint_conversion.c \
+	src/io/ft_printf/utils/number_helpers.c \
+	src/io/ft_printf/utils/printing_helpers.c \
+	src/io/ft_printf/utils/variadic_wrappers.c \
+	src/lists/ft_lstadd_back.c \
+	src/lists/ft_lstadd_front.c \
+	src/lists/ft_lstclear.c \
+	src/lists/ft_lstdelone.c \
+	src/lists/ft_lstiter.c \
+	src/lists/ft_lstlast.c \
+	src/lists/ft_lstmap.c \
+	src/lists/ft_lstnew.c \
+	src/lists/ft_lstsize.c \
+	src/math/ft_abs.c \
+	src/math/ft_maxnbr.c \
+	src/math/ft_maxsize.c \
+	src/math/ft_minnbr.c \
+	src/math/ft_minsize.c \
+	src/math/ft_nbrlen.c \
+	src/math/ft_sqrt.c \
+	src/memory/ft_bzero.c \
+	src/memory/ft_calloc.c \
+	src/memory/ft_memchr.c \
+	src/memory/ft_memcmp.c \
+	src/memory/ft_memcpy.c \
+	src/memory/ft_memmove.c \
+	src/memory/ft_memset.c \
+	src/string/ft_split.c \
+	src/string/ft_strchr.c \
+	src/string/ft_strdup.c \
+	src/string/ft_strisdigit.c \
+	src/string/ft_striteri.c \
+	src/string/ft_strjoin.c \
+	src/string/ft_strlcat.c \
+	src/string/ft_strlcpy.c \
+	src/string/ft_strlen.c \
+	src/string/ft_strmapi.c \
+	src/string/ft_strncmp.c \
+	src/string/ft_strndup.c \
+	src/string/ft_strndup_ssize.c \
+	src/string/ft_strnstr.c \
+	src/string/ft_strrchr.c \
+	src/string/ft_strtrim.c \
+	src/string/ft_substr.c
+OBJS = $(patsubst %.c,$(BUILD)/%.o,$(SRCS))
 
-# AR LIBRARY
-AR			= ar
-AFLAGS		= rcs
-AFLAGSBONUS	= rs
 
-# RM COMMAND
-RM			= rm
 
-# COLORS
-GREEN		:= \033[1;32m
-BLUE		:= \033[1;34m
-YELLOW		:= \033[1;33m
-PURPLE		:= \033[1;35m
-CYAN		:= \033[1;36m
-RED			:= \033[1;31m
-RESET		:= \033[0m
+all: $(NAME)
 
-# BAR
-BAR_LEN		:= 100
+$(NAME): $(OBJS)
+	@ar $(ARFLAGS) $(NAME) $(OBJS)
 
-# ********************************** RULES  ********************************** #
-${NAME}: ${SRC}
-	@echo -e "${PURPLE}"
-	@echo "           _____            _____                    _____                    _____                _____           "
-	@echo "          /\    \          /\    \                  /\    \                  /\    \              /\    \          "
-	@echo "         /::\____\        /::\    \                /::\    \                /::\    \            /::\    \         "
-	@echo "        /:::/    /        \:::\    \              /::::\    \              /::::\    \           \:::\    \        "
-	@echo "       /:::/    /          \:::\    \            /::::::\    \            /::::::\    \           \:::\    \       "
-	@echo "      /:::/    /            \:::\    \          /:::/\:::\    \          /:::/\:::\    \           \:::\    \      "
-	@echo "     /:::/    /              \:::\    \        /:::/__\:::\    \        /:::/__\:::\    \           \:::\    \     "
-	@echo "    /:::/    /               /::::\    \      /::::\   \:::\    \      /::::\   \:::\    \          /::::\    \    "
-	@echo "   /:::/    /       ____    /::::::\    \    /::::::\   \:::\    \    /::::::\   \:::\    \        /::::::\    \   "
-	@echo "  /:::/    /       /\   \  /:::/\:::\    \  /:::/\:::\   \:::\ ___\  /:::/\:::\   \:::\    \      /:::/\:::\    \  "
-	@echo " /:::/____/       /::\   \/:::/  \:::\____\/:::/__\:::\   \:::|    |/:::/  \:::\   \:::\____\    /:::/  \:::\____\ "
-	@echo " \:::\    \       \:::\  /:::/    \::/    /\:::\   \:::\  /:::|____|\::/    \:::\   \::/    /   /:::/    \::/    / "
-	@echo "  \:::\    \       \:::\/:::/    / \/____/  \:::\   \:::\/:::/    /  \/____/ \:::\   \/____/   /:::/    / \/____/  "
-	@echo "   \:::\    \       \::::::/    /            \:::\   \::::::/    /            \:::\    \      /:::/    /           "
-	@echo "    \:::\    \       \::::/____/              \:::\   \::::/    /              \:::\____\    /:::/    /            "
-	@echo "     \:::\    \       \:::\    \               \:::\  /:::/    /                \::/    /    \::/    /             "
-	@echo "      \:::\    \       \:::\    \               \:::\/:::/    /                  \/____/      \/____/              "
-	@echo "       \:::\    \       \:::\    \               \::::::/    /                                                     "
-	@echo "        \:::\____\       \:::\____\               \::::/    /                                                      "
-	@echo "         \::/    /        \::/    /                \::/____/                                                       "
-	@echo "          \/____/          \/____/                  ~~                                                             "
-	@echo -e "${RED}"
-	@echo "                                                   by dde-fite                                                   "
-	@echo -e "${RESET}"
-	@echo "Compiling libft functions ..."
-	@echo -e "${YELLOW}"
-	@count=0; \
-	for file in ${SRC}; do \
-		${CC} ${CFLAGS} $$file; \
-		count=$$((count + 1)); \
-		progress=$$((count * 100 / ${TOTAL})); \
-		hashes_len=$$((progress * ${BAR_LEN} / 100)); \
-		hashes=$$(printf '%0.s#' $$(seq 1 $$hashes_len)); \
-		spaces_len=$$((BAR_LEN - hashes_len)); \
-		spaces=$$(printf '%0.s ' $$(seq 1 $$spaces_len)); \
-		printf "\r[%s%s] %d%%" "$$hashes" "$$spaces" "$$progress"; \
-	done; \
-	echo
-	@echo -e "${RESET}"
-	@echo "Archiving objects in ${NAME} ..."
-	@echo ""
-	@${AR} ${AFLAGS} ${NAME} ${OBJ}
-	@echo -e "${GREEN}Process completed :)${RESET}"
-	@echo ""
-
-all: ${NAME}
+$(BUILD)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
-	@echo "Deleting all object files (.o of ft_*.c) ..."
-	@echo ""
-	@${RM} -rf ${OBJ} ${BONUSOBJ}
+	rm -rf $(OBJS)
 
 fclean: clean
-	@echo "Deleting binary file (${NAME}) ..."
-	@echo ""
-	@${RM} -f ${NAME} .bonus
+	rm -rf $(NAME)
 
 re: fclean all
 
-.bonus: ${NAME} ${BONUSSRC}
-	@echo "Compiling bonus functions ..."
-	@echo -e "${CYAN}"
-	@count=0; \
-	for file in ${BONUSSRC}; do \
-		${CC} ${CFLAGS} $$file; \
-		count=$$((count + 1)); \
-		progress=$$((count * 100 / ${TOTALBONUS})); \
-		hashes_len=$$((progress * ${BAR_LEN} / 100)); \
-		hashes=$$(printf '%0.s#' $$(seq 1 $$hashes_len)); \
-		spaces_len=$$((BAR_LEN - hashes_len)); \
-		spaces=$$(printf '%0.s ' $$(seq 1 $$spaces_len)); \
-		printf "\r[%s%s] %d%%" "$$hashes" "$$spaces" "$$progress"; \
-	done; \
-	echo
-	@echo -e "${RESET}"
-	@echo "Adding objects to ${NAME} ..."
-	@echo ""
-	@${AR} ${AFLAGSBONUS} ${NAME} ${BONUSOBJ}
-	@touch .bonus
-
-bonus: .bonus
-	@echo "bonus done.."
-
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
