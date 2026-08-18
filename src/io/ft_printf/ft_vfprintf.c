@@ -6,7 +6,7 @@
 /*   By: dde-fite <dde-fite@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 07:37:42 by dde-fite          #+#    #+#             */
-/*   Updated: 2026/08/18 08:33:26 by dde-fite         ###   ########.fr       */
+/*   Updated: 2026/08/18 19:46:42 by dde-fite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	interruption_event(
 	*str = get_precision(&mods, *str, args_ptr);
 	if (**str == '%')
 	{
-		ft_putchar_fd('%', stream);
+		ft_putchar_fd_buffered(stream, '%');
 		*str += 1;
 		return (1);
 	}
@@ -59,9 +59,10 @@ int	ft_vfprintf(const int stream, const char *format, va_list ap)
 			chrs_count += interruption_event(stream, &format, &ap);
 		else
 		{
-			ft_putchar_fd(*(char *)format++, stream);
+			ft_putchar_fd_buffered(stream, *(char *)format++);
 			chrs_count++;
 		}
 	}
+	ft_putstr_fd_buffered(stream, NULL, END);
 	return (chrs_count);
 }

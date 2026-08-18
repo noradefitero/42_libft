@@ -6,7 +6,7 @@
 /*   By: dde-fite <dde-fite@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 23:37:52 by dde-fite          #+#    #+#             */
-/*   Updated: 2026/08/18 08:33:43 by dde-fite         ###   ########.fr       */
+/*   Updated: 2026/08/18 19:49:39 by dde-fite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static void	print_number(const int stream, unsigned int nbr, t_modifiers *mods)
 	{
 		if (nbr >= INT_MAX)
 		{
-			ft_putnbr_fd(nbr / 10, stream);
-			ft_putnbr_fd(nbr % 10, stream);
+			ft_putnbr_fd_buffered(nbr / 10, stream);
+			ft_putnbr_fd_buffered(nbr % 10, stream);
 		}
 		else
-			ft_putnbr_fd(nbr, stream);
+			ft_putnbr_fd_buffered(nbr, stream);
 	}
 }
 

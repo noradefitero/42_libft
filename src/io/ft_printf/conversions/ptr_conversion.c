@@ -6,7 +6,7 @@
 /*   By: dde-fite <dde-fite@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 00:28:49 by dde-fite          #+#    #+#             */
-/*   Updated: 2026/08/18 08:33:33 by dde-fite         ###   ########.fr       */
+/*   Updated: 2026/08/18 19:48:22 by dde-fite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	print_hex_ptr(const int stream, uintptr_t nbr)
 	if (nbr > 0)
 	{
 		print_hex_ptr(stream, nbr / 16);
-		ft_putchar_fd(hex[nbr % 16], stream);
+		ft_putchar_fd_buffered(stream, hex[nbr % 16]);
 	}
 }
 
@@ -43,7 +43,7 @@ static int	null_management(const int stream, t_modifiers *mods)
 	paddng = ft_maxnbr(0, mods->width - ft_strlen("(nil)"));
 	if (!mods->minus)
 		fill_width(stream, paddng, mods->zero);
-	ft_putstr_fd("(nil)", stream);
+	ft_putstr_fd_buffered(stream, "(nil)", CONTINUE);
 	if (mods->minus)
 		fill_width(stream, paddng, mods->zero);
 	return (ft_strlen("(nil)") + paddng);
@@ -62,7 +62,7 @@ int	write_ptr(const int stream, void *ptr, t_modifiers *mods)
 	paddng = ft_maxnbr(0, mods->width - (nbr_len + precsn));
 	if (!mods->minus)
 		fill_width(stream, paddng, mods->zero);
-	ft_putstr_fd("0x", stream);
+	ft_putstr_fd_buffered(stream, "0x", CONTINUE);
 	if (mods->precision)
 		fill_char(stream, '0', precsn);
 	print_hex_ptr(stream, (uintptr_t)ptr);

@@ -33,6 +33,9 @@ SRCS = \
 	src/io/ft_printf/ft_printf.c \
 	src/io/ft_printf/ft_vfprintf.c \
 	src/io/ft_printf/ft_vprintf.c \
+	src/io/ft_printf/ft_putstr_fd_buffered.c \
+	src/io/ft_printf/ft_putchar_fd_buffered.c \
+	src/io/ft_printf/ft_putnbr_fd_buffered.c \
 	src/io/ft_printf/writers_switch.c \
 	src/io/ft_printf/conversions/char_conversion.c \
 	src/io/ft_printf/conversions/hex_conversion.c \
@@ -41,7 +44,6 @@ SRCS = \
 	src/io/ft_printf/conversions/str_conversion.c \
 	src/io/ft_printf/conversions/uint_conversion.c \
 	src/io/ft_printf/utils/number_helpers.c \
-	src/io/ft_printf/utils/printing_helpers.c \
 	src/io/ft_printf/utils/variadic_wrappers.c \
 	src/lists/ft_lstadd_back.c \
 	src/lists/ft_lstadd_front.c \

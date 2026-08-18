@@ -6,7 +6,7 @@
 /*   By: dde-fite <dde-fite@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 21:48:15 by dde-fite          #+#    #+#             */
-/*   Updated: 2026/08/18 08:52:00 by dde-fite         ###   ########.fr       */
+/*   Updated: 2026/08/18 19:46:24 by dde-fite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 /* ************************ PREPROCESSOR STATEMENTS ************************* */
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+
+# ifndef BUFFER_SIZE_PRINTF
+#  define BUFFER_SIZE_PRINTF 1024
+# endif
 
 # include "libft.h"
 
@@ -39,12 +43,29 @@ typedef struct s_modifiers
 	bool	is_precision;
 }	t_modifiers;
 
+typedef enum e_buffer_state
+{
+	CONTINUE,
+	END
+}	t_buffer_state;
+
 /* ****************************** MAIN PROTOYPE ***************************** */
 int				ft_printf(const char *format, ...);
 int				ft_fprintf(const int stream, const char *format, ...);
 int				ft_vprintf(const char *format, va_list ap);
 int				ft_vfprintf(const int stream, const char *format, va_list ap);
 /* ************************************************************************** */
+
+int				ft_putstr_fd_buffered(
+					const int stream,
+					const char *str,
+					t_buffer_state state
+					);
+int				ft_putchar_fd_buffered(
+					const int stream,
+					const char c
+					);
+void			ft_putnbr_fd_buffered(int n, int fd);
 
 /* **************************** ARGUMENT GETTERS **************************** */
 const char		*get_flags(t_modifiers *mods, const char *str);
@@ -76,8 +97,22 @@ int				write_ptr(const int stream, void *ptr, t_modifiers *mods);
 
 /* ********************************  UTILS ********************************* */
 
-void			fill_width(const int stream, unsigned int pd, bool zeroes);
-void			fill_char(const int stream, char c, unsigned int nbr);
+static inline void	fill_char(const int stream, char c, unsigned int nbr)
+{
+	while (nbr-- > 0)
+	{
+		ft_putchar_fd_buffered(stream, c);
+	}
+}
+
+static inline void	fill_width(const int stream, unsigned int pd, bool zeroes)
+{
+	if (zeroes)
+		fill_char(stream, '0', pd);
+	else
+		fill_char(stream, ' ', pd);
+}
+
 char			manage_sign(int nbr, unsigned int *u_nbr, t_modifiers *mods);
 
 /* **************************** VARIADIC GETTERS **************************** */

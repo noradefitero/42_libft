@@ -6,7 +6,7 @@
 /*   By: dde-fite <dde-fite@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 23:37:52 by dde-fite          #+#    #+#             */
-/*   Updated: 2026/08/18 08:19:03 by dde-fite         ###   ########.fr       */
+/*   Updated: 2026/08/18 19:49:09 by dde-fite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static void	print_number(const int stream, unsigned int nbr, t_modifiers *mods)
 	{
 		if (nbr == (unsigned int)INT_MIN)
 		{
-			ft_putnbr_fd(nbr / 10, stream);
-			ft_putnbr_fd(nbr % 10, stream);
+			ft_putnbr_fd_buffered(nbr / 10, stream);
+			ft_putnbr_fd_buffered(nbr % 10, stream);
 		}
 		else
-			ft_putnbr_fd(nbr, stream);
+			ft_putnbr_fd_buffered(nbr, stream);
 	}
 }
 
@@ -42,11 +42,11 @@ int	write_int(const int stream, int nbr, t_modifiers *mods)
 	precsn = ft_maxnbr(0, mods->precision - nbr_len);
 	paddng = ft_maxnbr(0, mods->width - (nbr_len + (bool)sign + precsn));
 	if (mods->zero && sign)
-		ft_putchar_fd(sign, stream);
+		ft_putchar_fd_buffered(stream, sign);
 	if (!mods->minus)
 		fill_width(stream, paddng, mods->zero);
 	if (!mods->zero && sign)
-		ft_putchar_fd(sign, stream);
+		ft_putchar_fd_buffered(stream, sign);
 	fill_char(stream, '0', precsn);
 	print_number(stream, u_nbr, mods);
 	if (mods->minus)

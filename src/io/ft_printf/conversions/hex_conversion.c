@@ -6,7 +6,7 @@
 /*   By: dde-fite <dde-fite@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 23:37:52 by dde-fite          #+#    #+#             */
-/*   Updated: 2026/08/18 08:07:19 by dde-fite         ###   ########.fr       */
+/*   Updated: 2026/08/18 19:47:55 by dde-fite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,18 @@ static void	print_hex(const int stream, unsigned int nbr, bool uppercase)
 	{
 		print_hex(stream, nbr / 16, uppercase);
 		if (uppercase)
-			ft_putchar_fd(ft_toupper(hex[nbr % 16]), stream);
+			ft_putchar_fd_buffered(stream, ft_toupper(hex[nbr % 16]));
 		else
-			ft_putchar_fd(hex[nbr % 16], stream);
+			ft_putchar_fd_buffered(stream, hex[nbr % 16]);
 	}
 }
 
 static void	print_prefix(const int stream, bool uppercase)
 {
 	if (uppercase)
-		ft_putstr_fd("0X", stream);
+		ft_putstr_fd_buffered(stream, "0X", CONTINUE);
 	else
-		ft_putstr_fd("0x", stream);
+		ft_putstr_fd_buffered(stream, "0x", CONTINUE);
 }
 
 static int	sum_prefix(unsigned int nbr, t_modifiers *mods)
@@ -84,7 +84,7 @@ int	write_hex(
 		if (nbr != 0)
 			print_hex(stream, nbr, uppercase);
 		else
-			ft_putchar_fd('0', stream);
+			ft_putchar_fd_buffered(stream, '0');
 	}
 	if (mods->minus)
 		fill_width(stream, paddng, mods->zero);
