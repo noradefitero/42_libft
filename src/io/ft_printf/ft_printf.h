@@ -6,7 +6,7 @@
 /*   By: dde-fite <dde-fite@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 21:48:15 by dde-fite          #+#    #+#             */
-/*   Updated: 2026/08/18 19:46:24 by dde-fite         ###   ########.fr       */
+/*   Updated: 2026/08/19 05:48:34 by dde-fite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "libft.h"
 
 # include <stdarg.h>
+# include <stdint.h>
 # include <stdbool.h>
 # include <limits.h>
 # include <unistd.h>
@@ -43,11 +44,10 @@ typedef struct s_modifiers
 	bool	is_precision;
 }	t_modifiers;
 
-typedef enum e_buffer_state
-{
-	CONTINUE,
-	END
-}	t_buffer_state;
+typedef uint8_t	t_buffer_state;
+
+# define CONTINUE 0
+# define END      1
 
 /* ****************************** MAIN PROTOYPE ***************************** */
 int				ft_printf(const char *format, ...);
